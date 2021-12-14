@@ -231,7 +231,7 @@ func (p *TalosHttpClient) Flush() error {
 	if err != nil {
 		return thrift.NewTTransportExceptionFromError(err)
 	}
-
+	defer response.Body.Close()
 	p.response = response
 	if response.StatusCode != http.StatusOK && response.Body != nil {
 		var serverTime int64
